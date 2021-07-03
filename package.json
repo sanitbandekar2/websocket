@@ -1,7 +1,6 @@
 {
   "name": "websoket",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
@@ -15,5 +14,6 @@
     "nodemon": "^2.0.8",
     "socket.io": "^4.1.2",
     "websocket": "^1.0.34"
-  }
+  },
+  "description": ""
 }
