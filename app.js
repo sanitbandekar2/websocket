@@ -6,7 +6,7 @@
 // const server = app.listen(PORT,()=>console.log(`server port ${PORT}`))
 // const io = require('socket.io')(server);
 
-// app.use(express.static(path.join(__dirname,'public')))
+// // app.use(express.static(path.join(__dirname,'public')))
 
 // let socketConnected = new Set()
 
@@ -34,7 +34,7 @@
 
 
 const SocketServer = require('websocket').server
-const http = require('https')
+const http = require('http')
 
 const server = http.createServer((req, res) => {})
 
