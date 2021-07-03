@@ -6,7 +6,7 @@
 // const server = app.listen(PORT,()=>console.log(`server port ${PORT}`))
 // const io = require('socket.io')(server);
 
-// // app.use(express.static(path.join(__dirname,'public')))
+// app.use(express.static(path.join(__dirname,'public')))
 
 // let socketConnected = new Set()
 
@@ -33,34 +33,45 @@
 // }
 
 
-const SocketServer = require('websocket').server
-const http = require('http')
+// const SocketServer = require('websocket').server
+// const http = require('http')
 
-const server = http.createServer((req, res) => {})
+// const server = http.createServer((req, res) => {})
 
-server.listen(4000, ()=>{
-    console.log("Listening on port 4000...")
-})
+// server.listen(4000, ()=>{
+//     console.log("Listening on port 4000...")
+// })
 
-wsServer = new SocketServer({httpServer:server})
+// wsServer = new SocketServer({httpServer:server})
 
-const connections = []
+// const connections = []
 
-wsServer.on('request', (req) => {
-    const connection = req.accept()
-    console.log('new connection')
-    connections.push(connection)
+// wsServer.on('request', (req) => {
+//     const connection = req.accept()
+//     console.log('new connection')
+//     connections.push(connection)
 
-    connection.on('message', (mes) => {
-        connections.forEach(element => {
-            if (element != connection)
-                element.sendUTF(mes.utf8Data)
-        })
-    })
+//     connection.on('message', (mes) => {
+//         connections.forEach(element => {
+//             if (element != connection)
+//                 element.sendUTF(mes.utf8Data)
+//         })
+//     })
 
-    connection.on('close', (resCode, des) => {
-        console.log('connection closed')
-        connections.splice(connections.indexOf(connection), 1)
-    })
+//     connection.on('close', (resCode, des) => {
+//         console.log('connection closed')
+//         connections.splice(connections.indexOf(connection), 1)
+//     })
 
+// })
+
+const WebSocket = require('ws')
+ 
+const wss = new WebSocket.Server({ port: 4000 })
+ 
+wss.on('connection', ws => {
+  ws.on('message', message => {
+    console.log(`Received message => ${message}`)
+  })
+  ws.send('Hello! Message From Server!!')
 })
