@@ -65,13 +65,47 @@
 
 // })
 
-const WebSocket = require('ws')
+
+
+// const WebSocket = require('ws')
  
-const wss = new WebSocket.Server({ port: 4000 })
+// const wss = new WebSocket.Server({ port: 4000 })
  
-wss.on('connection', ws => {
-  ws.on('message', message => {
-    console.log(`Received message => ${message}`)
-  })
-  ws.send('Hello! Message From Server!!')
+// wss.on('connection', ws => {
+//   ws.on('message', message => {
+//     console.log(`Received message => ${message}`)
+//   })
+//   ws.send('Hello! Message From Server!!')
+// })
+
+
+
+const SocketServer = require('ws').Server;
+var express = require('express');
+var path = require('path');
+//init Express
+var app = express();
+//init Express Router
+var router = express.Router();
+var port = process.env.PORT || 4000;
+var admin = path.join(__dirname, '/admin/adminPage.html');
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
+app.get('/admin', function(req, res) {
+    res.sendFile(admin);
+});
+var server = app.listen(port, function () {
+    //listening
 })
+const wss = new SocketServer({ server });
+
+wss.on('connection', function connection(ws) {
+    console.log("connection ...");
+});
+setInterval(() => {
+    wss.clients.forEach((client) => {
+      client.send(new Date().toTimeString());
+    });
+  }, 1000);
