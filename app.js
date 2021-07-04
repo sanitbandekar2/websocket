@@ -206,6 +206,7 @@
 
 const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 5000
 var WebSocketServer = require('websocket').server;
 var http = require('http');
 
@@ -223,7 +224,7 @@ app.get('/:id',(req,res,next)=>{
         res.send(id)
 })
 
-server.listen(5000, function() {
+server.listen(PORT, function() {
   console.log((new Date()) + ' Server is listening on port 5000');
 });
 
