@@ -222,10 +222,10 @@ app.get('/:id',(req,res,next)=>{
         const id =req.params.id;
         console.log(id);
         res.send(id)
+        const obj = JSON.parse(id);
     
-          sendToConnectionId(id,"data")
-  
-      console.log(req);
+          sendToConnectionId(obj.id,id)
+
 })
 
 server.listen(PORT, function() {
