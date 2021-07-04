@@ -222,6 +222,9 @@ app.get('/:id',(req,res,next)=>{
         const id =req.params.id;
         console.log(id);
         res.send(id)
+        setInterval(() => {
+          sendToConnectionId(id,"data")
+      }, 2000);
 })
 
 server.listen(PORT, function() {
@@ -261,9 +264,7 @@ wsServer.on('request', function(request) {
   console.log((new Date()) + ' Connection ID ' + connection.id + ' accepted.');
 
   
-  setInterval(() => {
-    sendToConnectionId(1,"data")
-}, 2000);
+
 
   connection.on('close', function(reasonCode, description) {
       console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected. ' +
