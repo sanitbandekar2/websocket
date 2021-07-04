@@ -233,9 +233,7 @@ wsServer = new WebSocketServer({ httpServer: server });
 
 function originIsAllowed(origin) {
 
-  setInterval(() => {
-      sendToConnectionId(2,"data")
-}, 1000);
+
 // put logic here to detect whether the specified origin is allowed.
 return true;
 }
@@ -263,7 +261,9 @@ wsServer.on('request', function(request) {
   console.log((new Date()) + ' Connection ID ' + connection.id + ' accepted.');
 
   
-
+  setInterval(() => {
+    sendToConnectionId(1,"data")
+}, 2000);
 
   connection.on('close', function(reasonCode, description) {
       console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected. ' +
