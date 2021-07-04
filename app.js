@@ -203,7 +203,7 @@
 //   console.log(`listening on *:${port}`);
 // });
 
-
+// ----------------------------------------------------------------------------------
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5000
@@ -222,9 +222,10 @@ app.get('/:id',(req,res,next)=>{
         const id =req.params.id;
         console.log(id);
         res.send(id)
-        setInterval(() => {
+    
           sendToConnectionId(id,"data")
-      }, 2000);
+  
+      console.log(req);
 })
 
 server.listen(PORT, function() {
@@ -235,8 +236,6 @@ server.listen(PORT, function() {
 wsServer = new WebSocketServer({ httpServer: server });
 
 function originIsAllowed(origin) {
-
-
 // put logic here to detect whether the specified origin is allowed.
 return true;
 }
@@ -253,18 +252,24 @@ wsServer.on('request', function(request) {
   }
   
   var connection = request.accept(null, request.origin);
+
+  let socketConnected = new Set()
+  var idArray = request.resourceURL.pathname.split("/");
+  console.log(idArray[1]);
   
   // Store a reference to the connection using an incrementing ID
-  connection.id = connectionIDCounter ++;
+  connection.id = idArray[1];
+  // connection.id = connectionIDCounter ++;
   connections[connection.id] = connection;
+  console.log(connection.id);
   
   // Now you can access the connection with connections[id] and find out
   // the id for a connection with connection.id
   
   console.log((new Date()) + ' Connection ID ' + connection.id + ' accepted.');
 
-  
 
+    
 
   connection.on('close', function(reasonCode, description) {
       console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected. ' +
@@ -292,3 +297,42 @@ function sendToConnectionId(connectionID, data) {
       connection.send(data);
   }
 }
+
+
+// -----------------------------------------------------------------------------------------------
+
+
+// var webSocketServer = new (require('ws')).Server({port: (process.env.PORT || 5000)}),
+//     webSockets = {} // userID: webSocket
+
+// // CONNECT /:userID
+// // wscat -c ws://localhost:5000/1
+// webSocketServer.on('connection', function (webSocket) {
+//   console.log(webSocket)
+//   var userID = 100
+//   webSockets[userID] = webSocket
+//   console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(webSockets))
+
+//   // Forward Message
+//   //
+//   // Receive               Example
+//   // [toUserID, text]      [2, "Hello, World!"]
+//   //
+//   // Send                  Example
+//   // [fromUserID, text]    [1, "Hello, World!"]
+//   webSocket.on('message', function(message) {
+//     console.log('received from ' + userID + ': ' + message)
+//     var messageArray = JSON.parse(message)
+//     var toUserWebSocket = webSockets[messageArray[0]]
+//     if (toUserWebSocket) {
+//       console.log('sent to ' + messageArray[0] + ': ' + JSON.stringify(messageArray))
+//       messageArray[0] = userID
+//       toUserWebSocket.send(JSON.stringify(messageArray))
+//     }
+//   })
+
+//   webSocket.on('close', function () {
+//     delete webSockets[userID]
+//     console.log('deleted: ' + userID)
+//   })
+// })
