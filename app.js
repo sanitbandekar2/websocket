@@ -226,7 +226,7 @@ app.get('/',(req,res,next)=>{
 app.post('/',(req,res,next)=>{
     console.log(req.body);
     // console.log(req.method);
-    res.send()
+    res.send(req.body)
 })
 
 app.get('/:id',(req,res,next)=>{
