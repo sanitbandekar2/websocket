@@ -226,8 +226,14 @@ app.get('/',(req,res,next)=>{
     res.send("home route")
 })
 app.post('/',(req,res,next)=>{
-    console.log(req.body);
+    console.log("body",req.body);
     // console.log(req.method);
+    const id =JSON.stringify(req.body);
+  console.log("id",id);
+        const obj = JSON.parse(id);
+        console.log(obj.id);
+        sendToConnectionId(obj.id,id)
+
     res.send(req.body)
 })
 
