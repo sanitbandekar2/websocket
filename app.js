@@ -207,15 +207,26 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5000
+
+const order = require('./Routes/orders.route')
+app.use('/orders',order)
+
 var WebSocketServer = require('websocket').server;
 var http = require('http');
 
 var server = http.createServer(app);
 
+
+
 app.get('/',(req,res,next)=>{
     console.log(req.url);
     console.log(req.method);
     res.send("home route")
+})
+app.post('/',(req,res,next)=>{
+    console.log("post");
+    // console.log(req.method);
+    res.send()
 })
 
 app.get('/:id',(req,res,next)=>{
@@ -228,12 +239,10 @@ app.get('/:id',(req,res,next)=>{
 
 })
 
-server.listen(PORT, function() {
-  console.log((new Date()) + ' Server is listening on port 5000');
-});
 
 
-wsServer = new WebSocketServer({ httpServer: server });
+
+wsServer = new WebSocketServer({ httpServer: server});
 
 function originIsAllowed(origin) {
 // put logic here to detect whether the specified origin is allowed.
@@ -298,6 +307,9 @@ function sendToConnectionId(connectionID, data) {
   }
 }
 
+server.listen(PORT, function() {
+  console.log((new Date()) + ' Server is listening on port 5000');
+});
 
 // -----------------------------------------------------------------------------------------------
 
