@@ -1,4 +1,10 @@
-GET http://localhost:5000/orders
+GET http://localhost:5000/
 ###
 
-POST http://localhost:5000/orders
+POST http://localhost:5000/
+Content-Type: application/json
+
+{
+   "name": "sanit",
+   "id": 55
+}
