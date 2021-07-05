@@ -5,6 +5,15 @@ POST http://localhost:5000/
 Content-Type: application/json
 
 {
-   "name": "sanit",
-   "id": 55
+   "id": 55,
+   "name": "sanit"
+}
+###
+
+POST http://websocket-apis.herokuapp.com/
+Content-Type: application/json
+
+{
+   "id": 55,
+   "name": "sanit"
 }
