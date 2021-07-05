@@ -224,7 +224,7 @@ app.get('/',(req,res,next)=>{
     res.send("home route")
 })
 app.post('/',(req,res,next)=>{
-    console.log("post");
+    console.log(req.body);
     // console.log(req.method);
     res.send()
 })
