@@ -273,6 +273,13 @@ wsServer.on('request', function(request) {
   let socketConnected = new Set()
   var idArray = request.resourceURL.pathname.split("/");
   console.log(idArray[1]);
+
+  connection.on('message', (mes) => {
+    const data =mes.utf8Data;
+    const obj = JSON.parse(data);
+    console.log("message",obj.id);
+    sendToConnectionId(obj.id,data)
+  })
   
   // Store a reference to the connection using an incrementing ID
   connection.id = idArray[1];
