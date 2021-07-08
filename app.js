@@ -278,7 +278,7 @@ wsServer.on('request', function(request) {
     const data =mes.utf8Data;
     const obj = JSON.parse(data);
     console.log("message",obj.id);
-    sendToConnectionId(obj.id,data)
+    sendToConnectionId(obj.id,obj)
   })
   
   // Store a reference to the connection using an incrementing ID
