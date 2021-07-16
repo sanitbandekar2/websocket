@@ -320,7 +320,7 @@ function sendToConnectionId(connectionID, data) {
   if (connection && connection.connected) {
       connection.send(data);
   }
-}
+} 
 
 server.listen(PORT, function() {
   console.log((new Date()) + ' Server is listening on port 5000');
